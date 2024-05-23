@@ -6,15 +6,15 @@ import { PartialDeep } from 'type-fest';
 
 class FuseNavigationHelper {
 	static selectById(nav: FuseNavItemType[], id: string): FuseNavItemType | undefined {
-		for (let i = 0; i < nav.length; i += 1) {
+		for (let i = 0; i < nav.length; i += 1) {//all navs, find the nav with the id
 			const item = nav[i];
 
 			if (item.id === id) {
 				return item;
 			}
 
-			if (item.children) {
-				const childItem = this.selectById(item.children, id);
+			if (item.children) {//if the nav id is different, check its children
+				const childItem = this.selectById(item.children, id);//recursion
 
 				if (childItem) {
 					return childItem;

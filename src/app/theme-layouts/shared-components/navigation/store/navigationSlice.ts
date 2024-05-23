@@ -10,6 +10,7 @@ import FuseUtils from '@fuse/utils';
 import navigationConfig from 'app/configs/navigationConfig';
 import { selectCurrentLanguageId } from 'app/store/i18nSlice';
 import { rootReducer } from 'app/store/lazyLoadedSlices';
+import { DraftableEntityState } from '@reduxjs/toolkit/src/entities/models';
 
 const navigationAdapter = createEntityAdapter<FuseFlatNavItemType>();
 

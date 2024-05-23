@@ -19,6 +19,14 @@ const navigationConfig: FuseNavItemType[] = [
 		type: 'item',
 		icon: 'heroicons-outline:star',
 		url: 'example'
+	},
+	{
+		id: 'break-component',
+		title: 'BreakDown',
+		translate: 'BREAKDOWN',
+		type: 'item',
+		icon: 'heroicons-outline:star',
+		url: 'break-down'
 	}
 ];
 

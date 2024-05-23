@@ -32,7 +32,7 @@ function MockAdapterProvider(props: MockAdapterProviderProps) {
 		};
 
 		if (enabled) {
-			setupAllMocks();
+			setupAllMocks();// if MockAdapterProvider is passed enable = true => all mocks defined will be set up
 			mock.onAny().passThrough();
 		} else {
 			mock.restore();

@@ -16,7 +16,7 @@ function useDebounce<T extends (...args: never[]) => void>(callback: T, delay: n
 	}, [callback]);
 
 	const debouncedFn = useCallback(
-		_.debounce((...args: never[]) => {
+		<Function>_.debounce((...args: never[]) => {
 			callbackRef.current(...args);
 		}, delay),
 		[delay]
