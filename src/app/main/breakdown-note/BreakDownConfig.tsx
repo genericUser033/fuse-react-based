@@ -20,7 +20,7 @@ const BreakDownConfig = {
 	routes: [
 		{
 			path: 'break-down',
-			element: <BreakDown/>
+			element: <BreakDown />
 		}
 	]
 };

@@ -1,14 +1,15 @@
 import { useTranslation } from 'react-i18next';
+import Typography from '@mui/material/Typography';
 
 function BreakDown() {
 	const { t } = useTranslation('breakdownPage');
 	return (
-		<div>
-			<div className="p-24">
-				<h4>{t('BREAKDOWN_TITLE')}</h4>
-			</div>
+		<Typography>
+			<Typography>
+				{t('BREAKDOWN_TITLE')}
+			</Typography>
 			<hr />
-			<div className="p-30 ml-24 leading-9">
+			<Typography>
 				<div>
 					.ts file: typescript
 					.tsx typescript xml that contains rendered code
@@ -56,8 +57,8 @@ function BreakDown() {
 
 					index.tsx = render App component in the root element
 				</div>
-			</div>
-		</div>
+			</Typography>
+		</Typography>
 	);
 }
 
