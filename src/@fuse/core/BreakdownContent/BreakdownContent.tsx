@@ -20,6 +20,7 @@ function BreakdownContent() {
 						maxWidth: '640px',
 						width: '100%'
 					}}
+
 					className="rounded-6"
 				/></Item>
 				<Item><img
