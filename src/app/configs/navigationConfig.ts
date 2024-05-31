@@ -12,20 +12,20 @@ i18next.addResourceBundle('ar', 'navigation', ar);
  * The navigationConfig object is an array of navigation items for the Fuse application.
  */
 const navigationConfig: FuseNavItemType[] = [
+	// {
+	// 	id: 'example-component',
+	// 	title: 'Example',
+	// 	translate: 'EXAMPLE',
+	// 	type: 'item',
+	// 	icon: 'heroicons-outline:star',
+	// 	url: 'example'
+	// },
 	{
-		id: 'example-component',
-		title: 'Example',
-		translate: 'EXAMPLE',
-		type: 'item',
-		icon: 'heroicons-outline:star',
-		url: 'example'
-	},
-	{
-		id: 'break-component',
-		title: 'BreakDown',
+		id: '',
+		title: 'マスター管理',
 		translate: 'BREAKDOWN',
 		type: 'item',
-		icon: 'heroicons-outline:star',
+		icon: 'heroicons-outline:pencil-alt',
 		url: 'break-down'
 	}
 ];

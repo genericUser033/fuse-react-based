@@ -32,30 +32,34 @@ function UserNavbarHeader() {
 	const user = useAppSelector(selectUser);
 
 	return (
-		<Root className="user relative flex flex-col items-center justify-center p-16 pb-14 shadow-0">
-			<div className="mb-24 flex items-center justify-center">
-				<Avatar
-					sx={{
-						backgroundColor: 'background.paper',
-						color: 'text.secondary'
-					}}
-					className="avatar uppercase h-96 w-96 text-32 font-bold"
-					src={user.data.photoURL}
-					alt={user.data.displayName}
+		<div>
+			<Root className="user relative flex flex-col items-center justify-center p-16 pb-14 shadow-0">
+				<div className="mb-24 flex items-center justify-center">
+					<Avatar
+						sx={{
+							backgroundColor: 'background.paper',
+							color: 'text.secondary'
+						}}
+						className="avatar uppercase h-96 w-96 text-32 font-bold"
+						src={user.data.photoURL}
+						alt={user.data.displayName}
+					>
+						{user?.data?.displayName?.charAt(0)}
+					</Avatar>
+				</div>
+				<Typography className="username whitespace-nowrap text-14 font-medium">
+					{user?.data?.displayName}
+				</Typography>
+				<Typography
+					className="email whitespace-nowrap text-13 font-medium"
+					color="text.secondary"
 				>
-					{user?.data?.displayName?.charAt(0)}
-				</Avatar>
-			</div>
-			<Typography className="username whitespace-nowrap text-14 font-medium">
-				{user?.data?.displayName}
-			</Typography>
-			<Typography
-				className="email whitespace-nowrap text-13 font-medium"
-				color="text.secondary"
-			>
-				{user.data.email}
-			</Typography>
-		</Root>
+					{user.data.email}
+				</Typography>
+
+			</Root>
+			<Typography className="mt-40 ml-28 mb-12 text-sm">マスター管理</Typography>
+		</div>
 	);
 }
 

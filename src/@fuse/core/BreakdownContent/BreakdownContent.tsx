@@ -102,7 +102,7 @@ function BreakdownContent() {
 					</div>
 					<div>
 						- App entry: App.tsx(whatever returned inside this will be rendered)
-						It will render Layout1/2/3 based on the layoutStyle gotton from settings.layout.style
+						It will render Layout1/2/3 based on the layoutStyle gotten from settings.layout.style
 
 						index.tsx = render App component in the root element
 					</div>
