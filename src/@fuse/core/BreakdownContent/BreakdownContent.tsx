@@ -1,114 +1,55 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import { useTranslation } from 'react-i18next';
-import {Item} from './BreakDownCSS'
-import { Box } from '@mui/system';
+import Paper from '@mui/material/Paper';
+import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+import { Input } from '@mui/base';
 
 function BreakdownContent() {
-	const { t } = useTranslation('breakdownPage');
+	const [searchText, setSearchText] = useState('');
+	function handleSearchText(event: React.ChangeEvent<HTMLInputElement>) {
+		setSearchText(event.target.value);
+	}
 
 	return (
-		<div>
-			<h1 className="py-16 font-semibold">Breaking down</h1>
-			<h4 className="pb-12 font-medium">Test Content</h4>
+		<>
+			<div className="flex items-center m-20 px-16">
+				<Paper className="flex float-left p-4 items-center w-1/3 py-4 border-1 h-40 rounded-full shadow-none">
+					<FuseSvgIcon
+						color="action"
+						size={20}
+					>
+						heroicons-solid:search
+					</FuseSvgIcon>
 
-			<Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
-				<Item><img
-					src="assets/images/demo-content/morain-lake.jpg"
-					alt="beach"
-					style={{
-						maxWidth: '640px',
-						width: '100%'
-					}}
-
-					className="rounded-6"
-				/></Item>
-				<Item><img
-					src="assets/images/demo-content/morain-lake.jpg"
-					alt="beach"
-					style={{
-						maxWidth: '640px',
-						width: '100%'
-					}}
-					className="rounded-6"
-				/></Item>
-				<Item><img
-					src="assets/images/demo-content/morain-lake.jpg"
-					alt="beach"
-					style={{
-						maxWidth: '640px',
-						width: '100%'
-					}}
-					className="rounded-6"
-				/></Item>
-				<Item><img
-					src="assets/images/demo-content/morain-lake.jpg"
-					alt="beach"
-					style={{
-						maxWidth: '640px',
-						width: '100%'
-					}}
-					className="rounded-6"
-				/></Item>
-			</Box>
-
-
-			<Typography>
-				<Typography>
-					{t('BREAKDOWN_TITLE')}
-				</Typography>
-				<hr />
-				<Typography>
-					<div>
-						.ts file: typescript
-						.tsx typescript xml that contains rendered code
-						i18n = internationalization, for multiple languages switch
-					</div>
-					<div>
-						- tailwind-base.css for self-defined CSS
-						- public folder: assets, ... things can be accessed anywhere
-						- @fuse/*
-						color directory: color hexa code
-						core directory: tsx files, for rendering tasks: nav, search, layout, ...
-					</div>
-
-					<div>
-						- @fuse/default-settings: default theme settings
-						- hooks directory: defined effect for the apps using useEffect hooks
-						- tailwind directory: defined a function called iconSize for setting the size of icons
-						- utils: utility functions that will be used during the project
-					</div>
-					<div>
-						1. ErrorBoundary
-						ErrorBoundary wraps AppContext.Provider, so whenever there is any error happends inside, react will update
-						the state(hasError) of ErrorBoundary to true and render something went wrong!
-					</div>
-
-					<div>
-						- @mock-api directory: mock fake data to return when calling mocked apis
-						MockAdapterProvider: wraps all the components in App.tsx, responsible for managing mock API behavior
-					</div>
-
-					<div>
-						- app
-						AppContext: with AppContextType type, it is an array of routes objects
-					</div>
-
-					<div>
-						- withAppProviders: provides the necessary context providers for the App component.
-						inside, useMemo to cache the routes and then pass to the AppContext Provider
-						(routes are imported from routeConfig, using spread operator to get [ExampleConfig, SignOutConfig, SignInConfig, SignUpConfig];
-						under FuseRouteConfigsType type)
-					</div>
-					<div>
-						- App entry: App.tsx(whatever returned inside this will be rendered)
-						It will render Layout1/2/3 based on the layoutStyle gotten from settings.layout.style
-
-						index.tsx = render App component in the root element
-					</div>
-				</Typography>
-			</Typography>
-		</div>
+					<Input
+						placeholder="Search by name or employee number"
+						className="flex flex-1 px-6 w-full"
+						disableUnderline
+						fullWidth
+						value={searchText}
+						inputProps={{
+							'aria-label': 'Search'
+						}}
+						onChange={handleSearchText}
+					/>
+				</Paper>
+				<Typography className="ml-20 talign-center">40 / 40 名</Typography>
+				<button className="border-2 w-60 rounded-lg bg-blue text-white ml-20"  type={"button"} >
+					<span className="text-2xl">+</span>
+					Add</button>
+			</div>
+			<hr />
+			<table className="text-gray-600 mt-16 mb-12 font-normal">
+				<th>社員番号</th>
+				<th>名前(ja)</th>
+				<th>名前(en)</th>
+				<th>名前(ko)</th>
+				<th>役職</th>
+				<th>入社日</th>
+				<th>勤続年数</th>
+			</table>
+			<hr />
+			</>
 	);
 }
 

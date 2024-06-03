@@ -69,6 +69,48 @@
         ]
       }
     },
+    "/retrieve/users": {
+      "parameters": [],
+      "get": {
+        "summary": "Fetch user",
+        "x-stoplight": {
+          "id": "73d7f4c16f9e2"
+        },
+        "operationId": "fetchUser",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Fetch user data.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/get_users"
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "uid": "string",
+                    "社員番号": "string",
+                    "名前(ja)": "string",
+                    "名前(en)": "string",
+                    "名前(ko)": "string",
+                    "役職": "string",
+                    "入社日": "string",
+                    "勤続年数": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "get_users"
+        ]
+      }
+    },
     "/auth/sign-in": {
       "post": {
         "summary": "Sign in",
@@ -32802,6 +32844,30 @@
                 "apps.tasks"
               ]
             }
+          }
+        ]
+      },
+      "get_users": {
+        "value": [
+          {
+            "uid": "1",
+            "社員番号": "string",
+            "名前(ja)": "string",
+            "名前(en)": "string",
+            "名前(ko)": "string",
+            "役職": "string",
+            "入社日": "string",
+            "勤続年数": "string"
+          },
+          {
+            "uid": "2",
+            "社員番号": "string",
+            "名前(ja)": "string",
+            "名前(en)": "string",
+            "名前(ko)": "string",
+            "役職": "string",
+            "入社日": "string",
+            "勤続年数": "string"
           }
         ]
       },

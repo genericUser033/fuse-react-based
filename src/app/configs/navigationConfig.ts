@@ -23,7 +23,7 @@ const navigationConfig: FuseNavItemType[] = [
 	{
 		id: '',
 		title: 'マスター管理',
-		translate: 'BREAKDOWN',
+		translate: '社員管理',
 		type: 'item',
 		icon: 'heroicons-outline:pencil-alt',
 		url: 'break-down'

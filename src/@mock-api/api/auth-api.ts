@@ -21,7 +21,6 @@ let usersApi = mockApi.components.examples.auth_users.value as unknown as UserAu
 export const authApiMocks = (mock: ExtendedMockAdapter) => {
 	mock.onPost('/auth/sign-in').reply((config) => {
 		const data = JSON.parse(config.data as string) as { email: string; password: string };
-
 		const { email, password } = data;
 
 		const user = _.cloneDeep(usersApi.find((_user) => _user.data.email === email));

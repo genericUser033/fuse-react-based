@@ -5,6 +5,7 @@ import { useAppDispatch } from 'app/store/hooks';
 import apiService from 'app/store/apiService';
 import ExtendedMockAdapter from './ExtendedMockAdapter';
 import { authApiMocks } from './api/auth-api';
+import { usersApiMocks } from '@mock-api/api/users-api';
 
 const mockAdapterOptions = {
 	delayResponse: 0
@@ -27,6 +28,9 @@ function MockAdapterProvider(props: MockAdapterProviderProps) {
 	useEffect(() => {
 		const setupAllMocks = () => {
 			[authApiMocks].forEach((mockSetup) => {
+				mockSetup(mock);
+			});
+			[usersApiMocks].forEach((mockSetup) => {
 				mockSetup(mock);
 			});
 		};

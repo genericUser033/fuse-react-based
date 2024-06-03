@@ -71,12 +71,12 @@ function ToolbarLayout1(props: ToolbarLayout1Props) {
 					</div>
 
 					<div className="flex h-full items-center overflow-x-auto px-8">
-						<LanguageSwitcher />
-						<AdjustFontSize />
+						{/*<LanguageSwitcher />*/}
+						{/*<AdjustFontSize />*/}
 						<FullScreenToggle />
-						<NavigationSearch />
-						<QuickPanelToggleButton />
-						<UserMenu />
+						{/*<NavigationSearch />*/}
+						{/*<QuickPanelToggleButton />*/}
+						{/*<UserMenu />*/}
 					</div>
 
 					{config.navbar.display && config.navbar.position === 'right' && (

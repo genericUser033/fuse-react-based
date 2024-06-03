@@ -120,7 +120,7 @@ function FuseShortcuts(props: FuseShortcutsProps) {
 								onClick={addMenuClick}
 								size="large"
 							>
-								<FuseSvgIcon sx={{ color: amber[600] }}>heroicons-solid:star</FuseSvgIcon>
+								<FuseSvgIcon>heroicons-solid:view-list</FuseSvgIcon>
 							</IconButton>
 						</Tooltip>
 					</div>
