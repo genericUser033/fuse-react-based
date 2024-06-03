@@ -27,10 +27,10 @@ function MockAdapterProvider(props: MockAdapterProviderProps) {
 	const isInitialMount = useRef(true);
 	useEffect(() => {
 		const setupAllMocks = () => {
-			[authApiMocks].forEach((mockSetup) => {
-				mockSetup(mock);
-			});
-			[usersApiMocks].forEach((mockSetup) => {
+			[
+				authApiMocks,
+				usersApiMocks
+			].forEach((mockSetup) => {
 				mockSetup(mock);
 			});
 		};
