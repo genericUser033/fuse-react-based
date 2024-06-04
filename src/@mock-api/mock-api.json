@@ -69,7 +69,7 @@
         ]
       }
     },
-    "/retrieve/users": {
+    "/retrieve/staffs": {
       "parameters": [],
       "get": {
         "summary": "Fetch user",
@@ -87,7 +87,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/get_users"
+                "$ref": "#/components/schemas/staffs"
               },
               "examples": {
                 "example-1": {
@@ -107,7 +107,7 @@
           }
         },
         "tags": [
-          "get_users"
+          "staffs"
         ]
       }
     },
@@ -32847,27 +32847,115 @@
           }
         ]
       },
-      "get_users": {
+      "staffs": {
         "value": [
           {
-            "uid": "1",
-            "社員番号": "string",
-            "名前(ja)": "string",
-            "名前(en)": "string",
-            "名前(ko)": "string",
-            "役職": "string",
-            "入社日": "string",
-            "勤続年数": "string"
+            "id": "2",
+            "avatar": "string",
+            "staffId": 2,
+            "japanName": "漢字　名字",
+            "katakanaName": "カー　カナ　ナマエ",
+            "englishName": "string",
+            "koreanName": "string",
+            "position": "string",
+            "joinedDate": "string",
+            "yearsOfWork": "string"
           },
           {
-            "uid": "2",
-            "社員番号": "string",
-            "名前(ja)": "string",
-            "名前(en)": "string",
-            "名前(ko)": "string",
-            "役職": "string",
-            "入社日": "string",
-            "勤続年数": "string"
+            "id": "2",
+            "avatar": "string",
+            "staffId": 2,
+            "japanName": "string",
+            "katakanaName": "キン　ナン　ハン",
+            "englishName": "string",
+            "koreanName": "string",
+            "position": "string",
+            "joinedDate": "string",
+            "yearsOfWork": "string"
+          },
+          {
+            "id": "1",
+            "avatar": "string",
+            "staffId": 1,
+            "japanName": "string",
+            "katakanaName": "キン　ナン　ハン",
+            "englishName": "string",
+            "koreanName": "string",
+            "position": "string",
+            "joinedDate": "string",
+            "yearsOfWork": "string"
+          },
+          {
+            "id": "2",
+            "avatar": "string",
+            "staffId": 2,
+            "japanName": "string",
+            "katakanaName": "キン　ナン　ハン",
+            "englishName": "string",
+            "koreanName": "string",
+            "position": "string",
+            "joinedDate": "string",
+            "yearsOfWork": "string"
+          },
+          {
+            "id": "2",
+            "avatar": "string",
+            "staffId": 2,
+            "japanName": "string",
+            "katakanaName": "キン　ナン　ハン",
+            "englishName": "string",
+            "koreanName": "string",
+            "position": "string",
+            "joinedDate": "string",
+            "yearsOfWork": "string"
+          },
+          {
+            "id": "1",
+            "avatar": "string",
+            "staffId": 1,
+            "japanName": "string",
+            "katakanaName": "キン　ナン　ハン",
+            "englishName": "string",
+            "koreanName": "string",
+            "position": "string",
+            "joinedDate": "string",
+            "yearsOfWork": "string"
+          },
+          {
+            "id": "2",
+            "avatar": "string",
+            "staffId": 2,
+            "japanName": "string",
+            "katakanaName": "キン　ナン　ハン",
+            "englishName": "string",
+            "koreanName": "string",
+            "position": "string",
+            "joinedDate": "string",
+            "yearsOfWork": "string"
+          },
+          {
+            "id": "2",
+            "avatar": "string",
+            "staffId": 2,
+            "japanName": "string",
+            "katakanaName": "string",
+            "englishName": "string",
+            "koreanName": "string",
+            "position": "string",
+            "joinedDate": "string",
+            "yearsOfWork": "string"
+          },
+          {
+            "id": "1",
+            "avatar": "string",
+            "staffId": 1,
+            "japanName": "string",
+            "katakanaName": "string",
+            "englishName": "string",
+            "koreanName": "string",
+            "position": "string",
+            "joinedDate": "string",
+            "yearsOfWork": "string"
           }
         ]
       },

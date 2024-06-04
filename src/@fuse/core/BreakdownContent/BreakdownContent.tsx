@@ -2,6 +2,10 @@ import React, { memo, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
+import {
+	useGetStaffListQuery
+} from '@mock-api/api/users-api';
+import FuseLoading from '@fuse/core/FuseLoading';
 
 function BreakdownContent() {
 	const [searchText, setSearchText] = useState('');
@@ -13,33 +17,41 @@ function BreakdownContent() {
 		setSearchText(event.target.value);
 	}
 
+	const { data, isLoading } = useGetStaffListQuery();
+
+	console.log("data", data);
+
+	if (isLoading) {
+		return <FuseLoading />;
+	}
+
 	return (
 		<div className="flex w-full h-full">
 			<div className="w-1/4 bg-[#FFFFFF] p-20 border border-gray-200">
 				<h1 className="m-[20px]">社員管理</h1>
 				<ul>
 					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
-					{levels.map(level => {
+					{levels.map((level, index) => {
 						return (
-							<li className="m-[20px]">{level}</li>
+							<li key={index} className="m-[20px]">{level}</li>
 						);
 					})}
 				</ul>
 
 				<ul>
 					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
-					{statuses.map(status => {
+					{statuses.map((status,  index) => {
 						return (
-							<li className="m-[20px]">{status}</li>
+							<li key={index} className="m-[20px]">{status}</li>
 						);
 					})}
 				</ul>
 
 				<ul>
 					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
-					{workplaces.map(workplace => {
+					{workplaces.map((workplace, index) => {
 						return (
-							<li className="m-[20px]">{workplace}</li>
+							<li key={index} className="m-[20px]">{workplace}</li>
 						);
 					})}
 				</ul>
@@ -57,12 +69,7 @@ function BreakdownContent() {
 						<input
 							placeholder="Search by name or employee number"
 							className="px-6 w-full"
-							disableUnderline
-							fullWidth
 							value={searchText}
-							inputProps={{
-								'aria-label': 'Search'
-							}}
 							onChange={handleSearchText}
 						/>
 					</Paper>
@@ -74,31 +81,39 @@ function BreakdownContent() {
 				<hr />
 				<div>
 					<table className=" w-full">
-						<tr className="bg-gray-200 text-gray-600">
+						<thead>
+							<tr className="bg-gray-200 text-gray-600">
+							{
+								theads.map((thead, index) => {
+									return <th className="p-[8px]" key={index} >{thead}</th>;
+								})
+							}
+							</tr>
+						</thead>
+						<tbody>
 						{
-							theads.map((thead, index) => {
-								return <th className="p-[8px]" key={index} >{thead}</th>;
-							})
+							data.map((record, index) =>  {
+							return (<tr className="border border-gray-200">
+								<td key={index} className="w-full flex justify-stretch text-center pt-[10px]">
+									<div className="w-1/2 ">{record.avatar}</div>
+									<div className="w-full">{record.staffId}</div>
+								</td>
+								<td>
+									<ul>
+										<li className='font-semibold'>{record.japanName}</li>
+										<li>{record.katakanaName}</li>
+									</ul>
+								</td>
+								<td>{record.englishName}</td>
+								<td>{record.koreanName}</td>
+								<td>{record.position}</td>
+								<td>{record.joinedDate}</td>
+								<td>{record.yearsOfWork}</td>
+							</tr>)
+						})
 						}
-						</tr>
-						<tr>
-							<td className="w-full flex justify-stretch text-center pt-[10px]">
-								<div className="w-1/2 ">Avatar</div>
-								<div className="w-full">Number</div>
-							</td>
 
-							<td>
-								<div>
-									<p>kanji</p>
-									<p>hiragana</p>
-								</div>
-							</td>
-							<td>name en</td>
-							<td>name ko</td>
-							<td>yakushoku</td>
-							<td>date</td>
-							<td>years</td>
-						</tr>
+						</tbody>
 					</table>
 				</div>
 				<hr />
