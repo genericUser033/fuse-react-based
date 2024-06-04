@@ -2,54 +2,108 @@ import React, { memo, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { Input } from '@mui/base';
 
 function BreakdownContent() {
 	const [searchText, setSearchText] = useState('');
+	const levels = ['部長', '次長', '課長', '社長'];
+	const statuses = ['待機中', '現場'];
+	const workplaces = ['アマゾン', '水は銀行', 'マイクロソフト'];
+	const theads = ['社員番号', '名前(ja)', '名前(en)', '名前(ko)', '役職', '入社日', '勤続年数'];
 	function handleSearchText(event: React.ChangeEvent<HTMLInputElement>) {
 		setSearchText(event.target.value);
 	}
 
 	return (
-		<>
-			<div className="flex items-center m-20 px-16">
-				<Paper className="flex float-left p-4 items-center w-1/3 py-4 border-1 h-40 rounded-full shadow-none">
-					<FuseSvgIcon
-						color="action"
-						size={20}
-					>
-						heroicons-solid:search
-					</FuseSvgIcon>
+		<div className="flex w-full h-full">
+			<div className="w-1/4 bg-[#FFFFFF] p-20 border border-gray-200">
+				<h1 className="m-[20px]">社員管理</h1>
+				<ul>
+					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
+					{levels.map(level => {
+						return (
+							<li className="m-[20px]">{level}</li>
+						);
+					})}
+				</ul>
 
-					<Input
-						placeholder="Search by name or employee number"
-						className="flex flex-1 px-6 w-full"
-						disableUnderline
-						fullWidth
-						value={searchText}
-						inputProps={{
-							'aria-label': 'Search'
-						}}
-						onChange={handleSearchText}
-					/>
-				</Paper>
-				<Typography className="ml-20 talign-center">40 / 40 名</Typography>
-				<button className="border-2 w-60 rounded-lg bg-blue text-white ml-20"  type={"button"} >
-					<span className="text-2xl">+</span>
-					Add</button>
+				<ul>
+					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
+					{statuses.map(status => {
+						return (
+							<li className="m-[20px]">{status}</li>
+						);
+					})}
+				</ul>
+
+				<ul>
+					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
+					{workplaces.map(workplace => {
+						return (
+							<li className="m-[20px]">{workplace}</li>
+						);
+					})}
+				</ul>
 			</div>
-			<hr />
-			<table className="text-gray-600 mt-16 mb-12 font-normal">
-				<th>社員番号</th>
-				<th>名前(ja)</th>
-				<th>名前(en)</th>
-				<th>名前(ko)</th>
-				<th>役職</th>
-				<th>入社日</th>
-				<th>勤続年数</th>
-			</table>
-			<hr />
-			</>
+			<div className="w-full bg-white">
+				<div className="flex items-center m-20 px-16">
+					<Paper className="flex p-4 items-center w-1/3 py-4 border-1 h-40 rounded-full shadow-none">
+						<FuseSvgIcon
+							color="action"
+							size={20}
+						>
+							heroicons-solid:search
+						</FuseSvgIcon>
+
+						<input
+							placeholder="Search by name or employee number"
+							className="px-6 w-full"
+							disableUnderline
+							fullWidth
+							value={searchText}
+							inputProps={{
+								'aria-label': 'Search'
+							}}
+							onChange={handleSearchText}
+						/>
+					</Paper>
+					<Typography className="ml-20 talign-center">40 / 40 名</Typography>
+					<button className="border-2 w-60 rounded-lg bg-blue-900 flex items-center justify-center text-white ml-20"  type={"button"} >
+						<span className="text-2xl">+</span>
+						Add</button>
+				</div>
+				<hr />
+				<div>
+					<table className=" w-full">
+						<tr className="bg-gray-200 text-gray-600">
+						{
+							theads.map((thead, index) => {
+								return <th className="p-[8px]" key={index} >{thead}</th>;
+							})
+						}
+						</tr>
+						<tr>
+							<td className="w-full flex justify-stretch text-center pt-[10px]">
+								<div className="w-1/2 ">Avatar</div>
+								<div className="w-full">Number</div>
+							</td>
+
+							<td>
+								<div>
+									<p>kanji</p>
+									<p>hiragana</p>
+								</div>
+							</td>
+							<td>name en</td>
+							<td>name ko</td>
+							<td>yakushoku</td>
+							<td>date</td>
+							<td>years</td>
+						</tr>
+					</table>
+				</div>
+				<hr />
+			</div>
+		</div>
 	);
 }
 
