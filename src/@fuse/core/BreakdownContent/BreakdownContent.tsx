@@ -1,4 +1,5 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
+import _ from '@lodash';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
@@ -6,6 +7,7 @@ import {
 	useGetStaffListQuery
 } from '@mock-api/api/users-api';
 import FuseLoading from '@fuse/core/FuseLoading';
+import { Staff } from '../../../app/staff/Staff';
 
 function BreakdownContent() {
 	const [searchText, setSearchText] = useState('');
@@ -13,13 +15,29 @@ function BreakdownContent() {
 	const statuses = ['待機中', '現場'];
 	const workplaces = ['アマゾン', '水は銀行', 'マイクロソフト'];
 	const theads = ['社員番号', '名前(ja)', '名前(en)', '名前(ko)', '役職', '入社日', '勤続年数'];
-	function handleSearchText(event: React.ChangeEvent<HTMLInputElement>) {
+	function handleSearchText(event) {
 		setSearchText(event.target.value);
 	}
-
 	const { data, isLoading } = useGetStaffListQuery();
 
-	console.log("data", data);
+	const [filteredStaff, setFilteredStaff] = useState<Staff[]>(data);
+
+
+	useEffect(() => {
+		function getFilteredArray() {
+			if (data && searchText.length === 0) {
+				return data;
+			}
+			return _.filter(data, (item) => {
+				return item.englishName.toLowerCase().includes(searchText.toLowerCase());
+			});
+		}
+
+		if (data) {
+			setFilteredStaff(getFilteredArray());
+		}
+	}, [data, searchText]);
+
 
 	if (isLoading) {
 		return <FuseLoading />;
@@ -74,13 +92,13 @@ function BreakdownContent() {
 						/>
 					</Paper>
 					<Typography className="ml-20 talign-center">40 / 40 名</Typography>
-					<button className="border-2 w-60 rounded-lg bg-blue-900 flex items-center justify-center text-white ml-20"  type={"button"} >
+					<button className="rounded-3xl border-2 w-60 rounded-lg bg-blue-900 flex items-center justify-center text-white ml-20"  type={"button"} >
 						<span className="text-2xl">+</span>
 						Add</button>
 				</div>
 				<hr />
 				<div>
-					<table className=" w-full">
+					<table className="w-full">
 						<thead>
 							<tr className="bg-gray-200 text-gray-600">
 							{
@@ -90,30 +108,53 @@ function BreakdownContent() {
 							}
 							</tr>
 						</thead>
-						<tbody>
-						{
-							data.map((record, index) =>  {
-							return (<tr className="border border-gray-200">
-								<td key={index} className="w-full flex justify-stretch text-center pt-[10px]">
-									<div className="w-1/2 ">{record.avatar}</div>
-									<div className="w-full">{record.staffId}</div>
-								</td>
-								<td>
-									<ul>
-										<li className='font-semibold'>{record.japanName}</li>
-										<li>{record.katakanaName}</li>
-									</ul>
-								</td>
-								<td>{record.englishName}</td>
-								<td>{record.koreanName}</td>
-								<td>{record.position}</td>
-								<td>{record.joinedDate}</td>
-								<td>{record.yearsOfWork}</td>
-							</tr>)
-						})
-						}
+						{/*<tbody>*/}
+						{/*{Object.entries(groupedFilteredStaff).map(([key, group]: [string, GroupedStaff]) =>*/}
+						{/*	group?.children?.map((item: Staff) => (*/}
+						{/*		<tr key={item.staffId} className="border border-gray-200">*/}
+						{/*			<td className="flex justify-right text-center pt-[10px] mx-20px">*/}
+						{/*				<div className="w-1/2">{item.avatar}</div>*/}
+						{/*				<div className="w-full">{item.staffId}</div>*/}
+						{/*			</td>*/}
+						{/*			<td>*/}
+						{/*				<ul>*/}
+						{/*					<li className='font-semibold'>{item.japanName}</li>*/}
+						{/*					<li>{item.katakanaName}</li>*/}
+						{/*				</ul>*/}
+						{/*			</td>*/}
+						{/*			<td>{item.englishName}</td>*/}
+						{/*			<td>{item.koreanName}</td>*/}
+						{/*			<td>{item.position}</td>*/}
+						{/*			<td>{item.joinedDate}</td>*/}
+						{/*			<td>{new Date().getFullYear() - parseInt(item.joinedDate.slice(0, 4)) + " years"}</td>*/}
+						{/*		</tr>*/}
+						{/*	))*/}
+						{/*)}*/}
+						{/*</tbody>*/}
 
+
+						<tbody>
+						{filteredStaff.map((item) =>
+								<tr key={item.staffId} className="border border-gray-200">
+									<td className="flex justify-right text-center pt-[10px] mx-20px">
+										<div className="w-1/2">{item.avatar}</div>
+										<div className="w-full">{item.staffId}</div>
+									</td>
+									<td>
+										<ul>
+											<li className='font-semibold'>{item.japanName}</li>
+											<li>{item.katakanaName}</li>
+										</ul>
+									</td>
+									<td>{item.englishName}</td>
+									<td>{item.koreanName}</td>
+									<td>{item.position}</td>
+									<td>{item.joinedDate}</td>
+									<td>{new Date().getFullYear() - parseInt(item.joinedDate.slice(0, 4)) + " years"}</td>
+								</tr>
+						)}
 						</tbody>
+
 					</table>
 				</div>
 				<hr />
@@ -121,5 +162,8 @@ function BreakdownContent() {
 		</div>
 	);
 }
+
+
+
 
 export default memo(BreakdownContent);
