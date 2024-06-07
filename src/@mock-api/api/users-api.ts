@@ -38,7 +38,6 @@ export const usersApiMocks = (mock: ExtendedMockAdapter) => {
 
 		const staff = _.find(staffDB, { id });
 		if (staff) {
-			console.log('found a staff ', staff);
 			return [200, staff];
 		}
 
@@ -50,7 +49,7 @@ export type GetStaffListApiResponse = /** status 200 OK */ Staff[];//return type
 export type GetStaffListApiArg = void;//arguments?
 
 export type GetStaffItemApiResponse = /** status 200 OK */ Staff;//return type
-export type GetStaffItemApiArg = number;//arguments?
+export type GetStaffItemApiArg = string;//arguments?
 
 export const {
 	useGetStaffListQuery,

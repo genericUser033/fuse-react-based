@@ -13,7 +13,6 @@ import { useAppDispatch} from 'app/store/hooks';
 import { toggleUserEditPopUp } from '../../../app/main/user-edit/UserEditPopSlice';
 import { UserEditPop } from '../../../app/main/user-edit/UserEditPop';
 import { Avatar } from '@mui/material';
-import { useParams } from 'react-router';
 import { Button } from '@mui/base';
 import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
 
@@ -29,17 +28,19 @@ function BreakdownContent() {
 	const { data, isLoading } = useGetStaffListQuery();
 
 	const [filteredStaff, setFilteredStaff] = useState<Staff[]>(data);
+	const [staffIdChecking, setStaffIdChecking] = useState();
+
 	const dispatch = useAppDispatch();
 
-	const routeParams = useParams();
-	const { id: staffId } = routeParams as { id: string };
-	const {
-		staff,
-		isLoading: isLoadingStaff
-	} = useGetStaffItemQuery(1);
-	console.log("staff found = ", isLoadingStaff && useGetStaffItemQuery(1))
+	const handleClick = (staffId) => {
+		setStaffIdChecking(staffId);
+	};
 
-	console.log("routeParams", routeParams)
+	const {
+		data: staff,
+	} = useGetStaffItemQuery(staffIdChecking, {
+		skip: !staffIdChecking
+	});
 
 	useEffect(() => {
 		function getFilteredArray() {
@@ -104,7 +105,7 @@ function BreakdownContent() {
 
 						<input
 							placeholder="Search by name or employee number"
-							className="px-6 w-full"
+							className="px-5 w-full"
 							value={searchText}
 							onChange={handleSearchText}
 						/>
@@ -117,8 +118,9 @@ function BreakdownContent() {
 				<hr />
 				<div>
 					<table className="w-full">
-						<thead>
-							<tr className="bg-gray-200 text-gray-600">
+						<thead className="bg-gray-200 text-gray-600">
+							<tr >
+								<th style={{ flex: '1' }}/> {/* Use flex: "1" to take up remaining space */}
 							{
 								theads.map((thead, index) => {
 									return <th className="p-[8px]" key={index} >{thead}</th>;
@@ -128,14 +130,15 @@ function BreakdownContent() {
 						</thead>
 						<tbody>
 						{filteredStaff.map((item) =>
-							<tr key={item.staffId} className="border border-gray-200" onClick={() =>　dispatch(toggleUserEditPopUp())}
-								component={NavLinkAdapter}
-								to={`/staff/${item.staffId}`}
+							<tr key={item.staffId} className="border border-gray-200" onClick={() => {
+								handleClick(item.id);
+								dispatch(toggleUserEditPopUp());
+							}}
 							>
-								<td className="flex justify-right items-center text-center pl-10 py-[3px] mx-20px">
-									<div className="w-1/2"><Avatar title='image' src={item.avatar}  alt='image'/></div>
-									<div className="w-full">{item.staffId}</div>
+								<td className="flex justify-left items-center text-center pl-10 py-[3px] ">
+									<Avatar title='image' src={item.avatar}  alt='image'/>
 								</td>
+								<td>{item.staffId}</td>
 								<td>
 									<ul>
 										<li className='font-semibold'>{item.japanName}</li>
@@ -153,7 +156,7 @@ function BreakdownContent() {
 
 					</table>
 				</div>
-				<UserEditPop />
+				<UserEditPop data={staff} />
 				<hr />
 			</div>
 		</div>

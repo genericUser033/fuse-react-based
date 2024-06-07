@@ -17,7 +17,8 @@ const StyledSwipeableDrawer = styled(SwipeableDrawer)(() => ({
 	}
 }));
 
-export const UserEditPop = () => {
+export const UserEditPop = (props) => {
+	const {data} = { ...props };
 	const [selectedTab, setSelectedTab] = useState(0);
 
 	function handleTabChange(event: SyntheticEvent, value: number) {
@@ -31,7 +32,6 @@ export const UserEditPop = () => {
 		activeTab: {
 			color: 'blue',
 			borderBottom: '3px solid rgba(0, 0, 128, 0.5)',
-			// Change this to your desired active text color
 		},
 	});
 
@@ -58,7 +58,7 @@ export const UserEditPop = () => {
 							<Avatar
 								sx={{ borderColor: 'background.paper' }}
 								className="w-128 h-128 border-2"
-								src="assets/images/avatars/male-04.jpg"
+								src={data?.avatar }
 								alt="User avatar"
 							/>
 						</motion.div>
@@ -69,8 +69,8 @@ export const UserEditPop = () => {
 				</div>
 				<div className="flex-wrap" />
 				<div className="flex items-center ml-60 mb-16">
-					<Typography className="text-2xl font-bold leading-none mr-32">鈴木 花子</Typography>
-					<Typography className="text-2xl font-bold leading-none">(スズキ ハナコ)</Typography>
+					<Typography className="text-2xl font-bold leading-none mr-32">{data?.japanName }</Typography>
+					<Typography className="text-2xl font-bold leading-none">{data?.katakanaName }</Typography>
 				</div>
 				<div className="flex flex-1 justify-start ml-20 my-20 lg:my-0">
 					<Tabs
@@ -107,23 +107,23 @@ export const UserEditPop = () => {
 					<div className="tab1　flex m-[20px]">
 						<div className="flex m-[24px] mr-20">
 							<div className="w-1/3">社員番号</div>
-							<div>123</div>
+							<div>{data?.staffId}</div>
 						</div>
 						<div className="flex m-[24px]">
 							<div className="w-1/3">E-Mail</div>
-							<div>admin@fusetheme.com</div>
+							<div>{data?.avatar}</div>
 						</div>
 						<div className="flex m-[24px]">
 							<div className="w-1/3">名前</div>
-							<div>名前</div>
+							<div>{data?.japanName}</div>
 						</div>
 						<div className="flex m-[24px]">
 							<div className="w-1/3">役職</div>
-							<div>部長</div>
+							<div>{data?.position}</div>
 						</div>
 						<div className="flex m-[24px]">
 							<div className="w-1/3">入社日</div>
-							<div>2021-07-10</div>
+							<div>{data?.joinedDate}</div>
 						</div>
 					</div>
 					:
@@ -131,18 +131,15 @@ export const UserEditPop = () => {
 						<div className="flex m-[20px] mr-20">
 							<FuseSvgIcon size={20} color='gray' marginRight='20px'>heroicons-outline:menu-alt-2</FuseSvgIcon>
 							<div className="w-2/5">現場名</div>
-							<div>みずほ銀行</div>
+							<div>{data?.yearsOfWork}</div>
 						</div>
 						<div className="flex m-[20px]">
 							<FuseSvgIcon size={20} color='gray' marginRight='20px'>heroicons-outline:menu-alt-2</FuseSvgIcon>
 							<div className="w-2/5">状態</div>
-							<div>現場</div>
+							<div>{data?.koreanName}</div>
 						</div>
 					</div>
 				}
-
-
-
 			</div>
 		</StyledSwipeableDrawer>
 	);
