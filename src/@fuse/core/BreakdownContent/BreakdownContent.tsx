@@ -4,7 +4,8 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import {
-	useGetStaffListQuery
+	useGetStaffListQuery,
+	useGetStaffItemQuery
 } from '@mock-api/api/users-api';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { Staff } from '../../../app/staff/Staff';
@@ -12,6 +13,9 @@ import { useAppDispatch} from 'app/store/hooks';
 import { toggleUserEditPopUp } from '../../../app/main/user-edit/UserEditPopSlice';
 import { UserEditPop } from '../../../app/main/user-edit/UserEditPop';
 import { Avatar } from '@mui/material';
+import { useParams } from 'react-router';
+import { Button } from '@mui/base';
+import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
 
 function BreakdownContent() {
 	const [searchText, setSearchText] = useState('');
@@ -25,10 +29,17 @@ function BreakdownContent() {
 	const { data, isLoading } = useGetStaffListQuery();
 
 	const [filteredStaff, setFilteredStaff] = useState<Staff[]>(data);
-
 	const dispatch = useAppDispatch();
 
+	const routeParams = useParams();
+	const { id: staffId } = routeParams as { id: string };
+	const {
+		staff,
+		isLoading: isLoadingStaff
+	} = useGetStaffItemQuery(1);
+	console.log("staff found = ", isLoadingStaff && useGetStaffItemQuery(1))
 
+	console.log("routeParams", routeParams)
 
 	useEffect(() => {
 		function getFilteredArray() {
@@ -98,10 +109,10 @@ function BreakdownContent() {
 							onChange={handleSearchText}
 						/>
 					</Paper>
-					<Typography className="ml-20 talign-center">40 / 40 名</Typography>
-					<button className="rounded-3xl border-2 w-60 rounded-lg bg-blue-900 flex items-center justify-center text-white ml-20"  type={"button"} >
-						<span className="text-2xl">+</span>
-						Add</button>
+					<Typography className="ml-20 talign-center">{filteredStaff?.length} / {filteredStaff?.length} 名</Typography>
+					<Button className="border-2 w-88 rounded-full bg-blue-800 flex items-center justify-center text-white ml-20 p-7"  type={"button"} >
+						<FuseSvgIcon size={20} margin="0 8px" >heroicons-outline:plus</FuseSvgIcon>
+						<span className="hidden sm:flex mr-16">Add</span></Button>
 				</div>
 				<hr />
 				<div>
@@ -117,7 +128,10 @@ function BreakdownContent() {
 						</thead>
 						<tbody>
 						{filteredStaff.map((item) =>
-							<tr key={item.staffId} className="border border-gray-200" onClick={() => dispatch(toggleUserEditPopUp())} >
+							<tr key={item.staffId} className="border border-gray-200" onClick={() =>　dispatch(toggleUserEditPopUp())}
+								component={NavLinkAdapter}
+								to={`/staff/${item.staffId}`}
+							>
 								<td className="flex justify-right items-center text-center pl-10 py-[3px] mx-20px">
 									<div className="w-1/2"><Avatar title='image' src={item.avatar}  alt='image'/></div>
 									<div className="w-full">{item.staffId}</div>

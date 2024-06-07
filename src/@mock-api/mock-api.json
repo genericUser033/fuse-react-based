@@ -87,7 +87,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/staffs"
+                "$ref": "#/components/schemas/staff"
               },
               "examples": {
                 "example-1": {
@@ -108,6 +108,71 @@
         },
         "tags": [
           "staffs"
+        ]
+      }
+    },
+    "/staff/{staffId}": {
+      "get": {
+        "summary": "Get staff",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/staff_item"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "id": "string",
+                      "avatar": "string",
+                      "staffId": 1,
+                      "japanName": "string",
+                      "katakanaName": "string",
+                      "englishName": "string",
+                      "koreanName": "string",
+                      "position": "Position",
+                      "joinedDate": "string",
+                      "yearsOfWork": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get Staff",
+        "description": "Retrieve Staff by id.",
+        "tags": [
+          "staff_item"
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "notificationId",
+          "in": "path",
+          "required": true,
+          "description": "notification id"
+        }
+      ],
+      "delete": {
+        "summary": "Delete notification",
+        "operationId": "deleteNotification",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "description": "Delete notification.",
+        "tags": [
+          "notifications"
         ]
       }
     },

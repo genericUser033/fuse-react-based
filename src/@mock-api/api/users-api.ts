@@ -1,4 +1,4 @@
-import ExtendedMockAdapter from '@mock-api/ExtendedMockAdapter';
+import ExtendedMockAdapter, { Params } from '@mock-api/ExtendedMockAdapter';
 import mockApi from '../mock-api.json';
 import { Staff } from '../../app/staff/Staff.ts';
 import { apiService as api } from 'app/store/apiService';
@@ -6,8 +6,9 @@ import { createSelector } from '@reduxjs/toolkit';
 import FuseUtils from '@fuse/utils';
 
 import { selectSearchText } from '../../app/staff/StaffSlice.ts';
+import _ from 'lodash';
 
-export const addTagTypes = ['staffs'] as const;
+export const addTagTypes = ['staffs', 'staff_item'] as const;
 const StaffApi = api
 	.enhanceEndpoints({
 		addTagTypes
@@ -18,23 +19,43 @@ const StaffApi = api
 				query: () => ({ url: `/mock-api/retrieve/staffs` }), //already mocked so just call the api
 				providesTags: ['staffs']
 			}),
+			getStaffItem: build.query<GetStaffItemApiResponse, GetStaffItemApiArg>({
+				query: (staffId) => ({ url: `/mock-api/staff/${staffId}` }),
+				providesTags: ['staff_item']
+			}),
 		}),
 		overrideExisting: false
 	});
 
 export const usersApiMocks = (mock: ExtendedMockAdapter) => {
 	const staffDB = mockApi.components.examples.staffs.value as Staff[];
+
 	mock.onGet('/retrieve/staffs').reply(() => {
 		return [200, staffDB];
+	});
+	mock.onGet('/staff/:id').reply((config) => {
+		const { id } = config.params as Params;
+
+		const staff = _.find(staffDB, { id });
+		if (staff) {
+			console.log('found a staff ', staff);
+			return [200, staff];
+		}
+
+		return [404, 'Requested staff do not exist.'];
 	});
 }
 
 export type GetStaffListApiResponse = /** status 200 OK */ Staff[];//return type
 export type GetStaffListApiArg = void;//arguments?
 
+export type GetStaffItemApiResponse = /** status 200 OK */ Staff;//return type
+export type GetStaffItemApiArg = number;//arguments?
+
 export const {
-	useGetStaffListQuery //just a name
-} = StaffApi;// the value
+	useGetStaffListQuery,
+	useGetStaffItemQuery
+} = StaffApi;
 
 /**
  * Select filtered contacts
@@ -62,7 +83,6 @@ export const selectGroupedFilteredStaff = (staff: Staff[]) =>
 		const sortedStaff = [...staff]?.sort((a, b) =>
 			a?.name?.localeCompare(b.name, 'es', { sensitivity: 'base' })
 		);
-		console.log("sortedStaff ", sortedStaff);
 
 		const groupedObject: {
 			[key: string]: GroupedStaff;
