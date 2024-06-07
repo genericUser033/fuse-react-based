@@ -14,7 +14,7 @@ const StaffApi = api
 	})
 	.injectEndpoints({
 		endpoints: build => ({
-			getStaffList: build.query<GetStaffListApiResponse, GetStaffListApiArg>({
+			getStaffList: build.query<GetStaffListApiResponse, GetStaffListApiArg>({//naming convention hear, if using it getStaffList => useGetStaffListQuery
 				query: () => ({ url: `/mock-api/retrieve/staffs` }), //already mocked so just call the api
 				providesTags: ['staffs']
 			}),

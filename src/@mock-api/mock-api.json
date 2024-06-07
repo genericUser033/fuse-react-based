@@ -32851,7 +32851,7 @@
         "value": [
           {
             "id": "1",
-            "avatar": "1.jpg",
+            "avatar": "assets/images/avatars/female-01.jpg",
             "staffId": 101,
             "japanName": "田中 太郎",
             "katakanaName": "タナカ タロウ",
@@ -32863,7 +32863,7 @@
           },
           {
             "id": "2",
-            "avatar": "2.jpg",
+            "avatar": "assets/images/avatars/brian-hughes.jpg",
             "staffId": 102,
             "japanName": "鈴木 花子",
             "katakanaName": "スズキ ハナコ",
@@ -32875,7 +32875,7 @@
           },
           {
             "id": "3",
-            "avatar": "3.jpg",
+            "avatar": "assets/images/avatars/female-03.jpg",
             "staffId": 103,
             "japanName": "山田 次郎",
             "katakanaName": "ヤマダ ジロウ",
@@ -32887,7 +32887,7 @@
           },
           {
             "id": "4",
-            "avatar": "4.jpg",
+            "avatar": "assets/images/avatars/female-04.jpg",
             "staffId": 104,
             "japanName": "佐藤 美代子",
             "katakanaName": "サトウ ミヨコ",
@@ -32899,7 +32899,7 @@
           },
           {
             "id": "5",
-            "avatar": "5.jpg",
+            "avatar": "assets/images/avatars/female-05.jpg",
             "staffId": 105,
             "japanName": "高橋 健太",
             "katakanaName": "タカハシ ケンタ",
@@ -32911,7 +32911,7 @@
           },
           {
             "id": "6",
-            "avatar": "6.jpg",
+            "avatar": "assets/images/avatars/female-06.jpg",
             "staffId": 106,
             "japanName": "伊藤 由美",
             "katakanaName": "イトウ ユミ",
@@ -32923,7 +32923,7 @@
           },
           {
             "id": "7",
-            "avatar": "7.jpg",
+            "avatar": "assets/images/avatars/female-08.jpg",
             "staffId": 107,
             "japanName": "中村 太一",
             "katakanaName": "ナカムラ タイチ",
@@ -32935,7 +32935,7 @@
           },
           {
             "id": "8",
-            "avatar": "8.jpg",
+            "avatar": "assets/images/avatars/female-09.jpg",
             "staffId": 108,
             "japanName": "小林 美佐子",
             "katakanaName": "コバヤシ ミサコ",
@@ -32947,7 +32947,7 @@
           },
           {
             "id": "9",
-            "avatar": "9.jpg",
+            "avatar": "assets/images/avatars/female-10.jpg",
             "staffId": 109,
             "japanName": "加藤 光男",
             "katakanaName": "カトウ ミツオ",
@@ -32959,7 +32959,7 @@
           },
           {
             "id": "10",
-            "avatar": "10.jpg",
+            "avatar": "assets/images/avatars/female-11.jpg",
             "staffId": 110,
             "japanName": "山口 美智子",
             "katakanaName": "ヤマグチ ミチコ",
@@ -32971,7 +32971,7 @@
           },
           {
             "id": "11",
-            "avatar": "11.jpg",
+            "avatar": "assets/images/avatars/female-12.jpg",
             "staffId": 111,
             "japanName": "松本 健一",
             "katakanaName": "マツモト ケンイチ",
@@ -32983,7 +32983,7 @@
           },
           {
             "id": "12",
-            "avatar": "12.jpg",
+            "avatar": "assets/images/avatars/female-13.jpg",
             "staffId": 112,
             "japanName": "斎藤 さちこ",
             "katakanaName": "サイトウ サチコ",

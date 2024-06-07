@@ -8,6 +8,10 @@ import {
 } from '@mock-api/api/users-api';
 import FuseLoading from '@fuse/core/FuseLoading';
 import { Staff } from '../../../app/staff/Staff';
+import { useAppDispatch} from 'app/store/hooks';
+import { toggleUserEditPopUp } from '../../../app/main/user-edit/UserEditPopSlice';
+import { UserEditPop } from '../../../app/main/user-edit/UserEditPop';
+import { Avatar } from '@mui/material';
 
 function BreakdownContent() {
 	const [searchText, setSearchText] = useState('');
@@ -21,6 +25,9 @@ function BreakdownContent() {
 	const { data, isLoading } = useGetStaffListQuery();
 
 	const [filteredStaff, setFilteredStaff] = useState<Staff[]>(data);
+
+	const dispatch = useAppDispatch();
+
 
 
 	useEffect(() => {
@@ -45,7 +52,7 @@ function BreakdownContent() {
 
 	return (
 		<div className="flex w-full h-full">
-			<div className="w-1/4 bg-[#FFFFFF] p-20 border border-gray-200">
+			<div className="w-1/5 bg-[#FFFFFF] p-16 border border-gray-200">
 				<h1 className="m-[20px]">社員管理</h1>
 				<ul>
 					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
@@ -108,55 +115,31 @@ function BreakdownContent() {
 							}
 							</tr>
 						</thead>
-						{/*<tbody>*/}
-						{/*{Object.entries(groupedFilteredStaff).map(([key, group]: [string, GroupedStaff]) =>*/}
-						{/*	group?.children?.map((item: Staff) => (*/}
-						{/*		<tr key={item.staffId} className="border border-gray-200">*/}
-						{/*			<td className="flex justify-right text-center pt-[10px] mx-20px">*/}
-						{/*				<div className="w-1/2">{item.avatar}</div>*/}
-						{/*				<div className="w-full">{item.staffId}</div>*/}
-						{/*			</td>*/}
-						{/*			<td>*/}
-						{/*				<ul>*/}
-						{/*					<li className='font-semibold'>{item.japanName}</li>*/}
-						{/*					<li>{item.katakanaName}</li>*/}
-						{/*				</ul>*/}
-						{/*			</td>*/}
-						{/*			<td>{item.englishName}</td>*/}
-						{/*			<td>{item.koreanName}</td>*/}
-						{/*			<td>{item.position}</td>*/}
-						{/*			<td>{item.joinedDate}</td>*/}
-						{/*			<td>{new Date().getFullYear() - parseInt(item.joinedDate.slice(0, 4)) + " years"}</td>*/}
-						{/*		</tr>*/}
-						{/*	))*/}
-						{/*)}*/}
-						{/*</tbody>*/}
-
-
 						<tbody>
 						{filteredStaff.map((item) =>
-								<tr key={item.staffId} className="border border-gray-200">
-									<td className="flex justify-right text-center pt-[10px] mx-20px">
-										<div className="w-1/2">{item.avatar}</div>
-										<div className="w-full">{item.staffId}</div>
-									</td>
-									<td>
-										<ul>
-											<li className='font-semibold'>{item.japanName}</li>
-											<li>{item.katakanaName}</li>
-										</ul>
-									</td>
-									<td>{item.englishName}</td>
-									<td>{item.koreanName}</td>
-									<td>{item.position}</td>
-									<td>{item.joinedDate}</td>
-									<td>{new Date().getFullYear() - parseInt(item.joinedDate.slice(0, 4)) + " years"}</td>
-								</tr>
+							<tr key={item.staffId} className="border border-gray-200" onClick={() => dispatch(toggleUserEditPopUp())} >
+								<td className="flex justify-right items-center text-center pl-10 py-[3px] mx-20px">
+									<div className="w-1/2"><Avatar title='image' src={item.avatar}  alt='image'/></div>
+									<div className="w-full">{item.staffId}</div>
+								</td>
+								<td>
+									<ul>
+										<li className='font-semibold'>{item.japanName}</li>
+										<li>{item.katakanaName}</li>
+									</ul>
+								</td>
+								<td>{item.englishName}</td>
+								<td>{item.koreanName}</td>
+								<td>{item.position}</td>
+								<td>{item.joinedDate}</td>
+								<td>{new Date().getFullYear() - parseInt(item.joinedDate.slice(0, 4)) + " years"}</td>
+							</tr>
 						)}
 						</tbody>
 
 					</table>
 				</div>
+				<UserEditPop />
 				<hr />
 			</div>
 		</div>
