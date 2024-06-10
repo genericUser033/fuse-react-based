@@ -12,6 +12,7 @@ import { useAppSelector } from 'app/store/hooks';
 import { useSelector } from 'react-redux';
 import withAppProviders from './withAppProviders';
 import AuthenticationProvider from './auth/AuthenticationProvider';
+import { LeftSidebarProvider } from '@fuse/core/FuseShortcuts/FuseShortcuts';
 
 // import axios from 'axios';
 /**
@@ -66,7 +67,9 @@ function App() {
 								containerRoot: 'bottom-0 right-0 mb-52 md:mb-68 mr-8 lg:mr-80 z-99'
 							}}
 						>
-							<FuseLayout layouts={themeLayouts} />
+							<LeftSidebarProvider>
+								<FuseLayout layouts={themeLayouts} />
+							</LeftSidebarProvider>
 						</SnackbarProvider>
 					</AuthenticationProvider>
 				</FuseTheme>

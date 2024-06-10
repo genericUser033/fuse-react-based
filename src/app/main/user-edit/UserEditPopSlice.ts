@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { rootReducer } from 'app/store/lazyLoadedSlices';
-import { quickPanelSlice } from 'app/theme-layouts/shared-components/quickPanel/quickPanelSlice';
 
 export const userEditPopSlice = createSlice({
 	name: 'userEditPop',
@@ -22,5 +21,3 @@ export const { selectUserEditPopUpOpen } = injectedSlice.selectors;
 export const { toggleUserEditPopUp } = userEditPopSlice.actions;
 
 export type dataSliceType = typeof userEditPopSlice;
-
-export default userEditPopSlice.reducer;

@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 
@@ -34,6 +34,12 @@ export const UserEditPop = (props) => {
 			borderBottom: '3px solid rgba(0, 0, 128, 0.5)',
 		},
 	});
+
+	useEffect(() => {
+		if(!open) {
+			setSelectedTab(0);
+		}
+	}, [open])
 
 	const classes = useStyles();
 

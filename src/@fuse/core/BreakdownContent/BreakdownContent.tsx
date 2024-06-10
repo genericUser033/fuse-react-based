@@ -14,13 +14,12 @@ import { toggleUserEditPopUp } from '../../../app/main/user-edit/UserEditPopSlic
 import { UserEditPop } from '../../../app/main/user-edit/UserEditPop';
 import { Avatar } from '@mui/material';
 import { Button } from '@mui/base';
-import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
+import StaffNavigationShortcuts from 'app/theme-layouts/shared-components/navigation/StaffNavigationShortcuts';
+import { useLeftSidebar } from '@fuse/core/FuseShortcuts/FuseShortcuts';
 
 function BreakdownContent() {
 	const [searchText, setSearchText] = useState('');
-	const levels = ['部長', '次長', '課長', '社長'];
-	const statuses = ['待機中', '現場'];
-	const workplaces = ['アマゾン', '水は銀行', 'マイクロソフト'];
+
 	const theads = ['社員番号', '名前(ja)', '名前(en)', '名前(ko)', '役職', '入社日', '勤続年数'];
 	function handleSearchText(event) {
 		setSearchText(event.target.value);
@@ -35,6 +34,8 @@ function BreakdownContent() {
 	const handleClick = (staffId) => {
 		setStaffIdChecking(staffId);
 	};
+
+	const leftSidebarOpen = useLeftSidebar();
 
 	const {
 		data: staff,
@@ -57,42 +58,13 @@ function BreakdownContent() {
 		}
 	}, [data, searchText]);
 
-
 	if (isLoading) {
 		return <FuseLoading />;
 	}
 
 	return (
 		<div className="flex w-full h-full">
-			<div className="w-1/5 bg-[#FFFFFF] p-16 border border-gray-200">
-				<h1 className="m-[20px]">社員管理</h1>
-				<ul>
-					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
-					{levels.map((level, index) => {
-						return (
-							<li key={index} className="m-[20px]">{level}</li>
-						);
-					})}
-				</ul>
-
-				<ul>
-					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
-					{statuses.map((status,  index) => {
-						return (
-							<li key={index} className="m-[20px]">{status}</li>
-						);
-					})}
-				</ul>
-
-				<ul>
-					<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
-					{workplaces.map((workplace, index) => {
-						return (
-							<li key={index} className="m-[20px]">{workplace}</li>
-						);
-					})}
-				</ul>
-			</div>
+			{leftSidebarOpen.leftSidebarOpen === true && <StaffNavigationShortcuts/>}
 			<div className="w-full bg-white">
 				<div className="flex items-center m-20 px-16">
 					<Paper className="flex p-4 items-center w-1/3 py-4 border-1 h-40 rounded-full shadow-none">
@@ -118,42 +90,41 @@ function BreakdownContent() {
 				<hr />
 				<div>
 					<table className="w-full">
-						<thead className="bg-gray-200 text-gray-600">
+						<thead className="bg-gray-200 text-gray-600 ">
 							<tr >
-								<th style={{ flex: '1' }}/> {/* Use flex: "1" to take up remaining space */}
+								<th style={{ flex: '1' }} className="px-20"/> {/* Use flex: "1" to take up remaining space */}
 							{
 								theads.map((thead, index) => {
-									return <th className="p-[8px]" key={index} >{thead}</th>;
+									return <th key={index} className="px-20 text-justify">{thead}</th>;
 								})
 							}
 							</tr>
 						</thead>
 						<tbody>
-						{filteredStaff.map((item) =>
+						{filteredStaff?.map((item) =>
 							<tr key={item.staffId} className="border border-gray-200" onClick={() => {
 								handleClick(item.id);
 								dispatch(toggleUserEditPopUp());
 							}}
 							>
-								<td className="flex justify-left items-center text-center pl-10 py-[3px] ">
+								<td className="flex justify-left items-center text-center pl-10 py-[3px] px-20 " >
 									<Avatar title='image' src={item.avatar}  alt='image'/>
 								</td>
-								<td>{item.staffId}</td>
-								<td>
+								<td className="px-20">{item.staffId}</td>
+								<td className="px-20">
 									<ul>
 										<li className='font-semibold'>{item.japanName}</li>
 										<li>{item.katakanaName}</li>
 									</ul>
 								</td>
-								<td>{item.englishName}</td>
-								<td>{item.koreanName}</td>
-								<td>{item.position}</td>
-								<td>{item.joinedDate}</td>
-								<td>{new Date().getFullYear() - parseInt(item.joinedDate.slice(0, 4)) + " years"}</td>
+								<td className="px-20">{item.englishName}</td>
+								<td className="px-20">{item.position}</td>
+								<td className="px-20">{item.koreanName}</td>
+								<td className="px-20">{item.joinedDate}</td>
+								<td className="px-20">{new Date().getFullYear() - parseInt(item.joinedDate.slice(0, 4)) + " years"}</td>
 							</tr>
 						)}
 						</tbody>
-
 					</table>
 				</div>
 				<UserEditPop data={staff} />

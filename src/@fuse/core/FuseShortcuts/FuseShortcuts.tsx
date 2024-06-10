@@ -1,19 +1,9 @@
-import { amber } from '@mui/material/colors';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import clsx from 'clsx';
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import _ from '@lodash';
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import FuseSvgIcon from '../FuseSvgIcon';
 import { FuseFlatNavItemType } from '../FuseNavigation/types/FuseNavItemType';
+import { useThemeMediaQuery } from '@fuse/hooks';
 
 type FuseShortcutsProps = {
 	className?: string;
@@ -28,224 +18,49 @@ type FuseShortcutsProps = {
  * It uses various MUI components to render the list items and search input.
  * The component is memoized to prevent unnecessary re-renders.
  */
-function FuseShortcuts(props: FuseShortcutsProps) {
-	const { navigation = [], shortcuts = [], onChange, variant = 'horizontal', className = '' } = props;
+const LeftSidebarContext = createContext({});
 
-	const searchInputRef = useRef<HTMLInputElement>(null);
-	const [addMenu, setAddMenu] = useState<HTMLElement | null>(null);
-	const [searchText, setSearchText] = useState('');
-	const [searchResults, setSearchResults] = useState<FuseFlatNavItemType[]>([]);
-	const [shortcutItems, setShortcutItems] = useState<FuseFlatNavItemType[]>([]);
+export const LeftSidebarProvider = ({ children }) => {
+	const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
+	const [leftSidebarOpen, setLeftSidebarOpen] = useState(!isMobile);
+	useEffect(() => {
+		setLeftSidebarOpen(!isMobile);
+	}, [isMobile]);
 
 	useEffect(() => {
-		const _shortcutItems = shortcuts
-			? shortcuts.map((id) => _.find(navigation, { id }))
-			: ([] as FuseFlatNavItemType[]);
-
-		setShortcutItems(_shortcutItems);
-	}, [shortcuts]);
-
-	function addMenuClick(event: React.MouseEvent<HTMLElement>) {
-		setAddMenu(event.currentTarget);
-	}
-
-	function addMenuClose() {
-		setAddMenu(null);
-	}
-
-	function search(ev: React.ChangeEvent<HTMLInputElement>) {
-		const newSearchText = ev.target.value;
-
-		setSearchText(newSearchText);
-
-		if (newSearchText.length !== 0 && navigation) {
-			setSearchResults(
-				navigation.filter((item) => item?.title?.toLowerCase()?.includes(newSearchText?.toLowerCase()))
-			);
-			return;
+		if (isMobile) {
+			setLeftSidebarOpen(false);
 		}
-
-		setSearchResults([]);
-	}
-
-	function toggleInShortcuts(id: string) {
-		let newShortcuts = [...shortcuts];
-
-		newShortcuts = _.xor(newShortcuts, [id]);
-
-		onChange(newShortcuts);
-	}
+	}, [location, isMobile]); // Assuming location is defined somewhere
 
 	return (
-		<div className={clsx('flex flex-1', variant === 'vertical' && 'shrink grow-0 flex-col', className)}>
-			{useMemo(() => {
-				return (
-					<div className={clsx('flex flex-1', variant === 'vertical' && 'flex-col')}>
-						{shortcutItems.map(
-							(_item) =>
-								_item && (
-									<Link
-										to={_item.url}
-										key={_item.id}
-										role="button"
-									>
-										<Tooltip
-											title={_item.title}
-											placement={variant === 'horizontal' ? 'bottom' : 'left'}
-										>
-											<IconButton
-												className="h-40 w-40 p-0"
-												size="large"
-											>
-												{_item.icon ? (
-													<FuseSvgIcon>{_item.icon}</FuseSvgIcon>
-												) : (
-													<span className="text-20 font-semibold uppercase">
-														{_item.title[0]}
-													</span>
-												)}
-											</IconButton>
-										</Tooltip>
-									</Link>
-								)
-						)}
-
-						<Tooltip
-							title="Click to add/remove shortcut"
-							placement={variant === 'horizontal' ? 'bottom' : 'left'}
-						>
-							<IconButton
-								className="h-40 w-40 p-0"
-								aria-haspopup="true"
-								onClick={addMenuClick}
-								size="large"
-							>
-								<FuseSvgIcon>heroicons-solid:view-list</FuseSvgIcon>
-							</IconButton>
-						</Tooltip>
-					</div>
-				);
-			}, [addMenu, variant, shortcutItems])}
-
-			<Menu
-				id="add-menu"
-				anchorEl={addMenu}
-				open={Boolean(addMenu)}
-				onClose={addMenuClose}
-				classes={{
-					paper: 'min-w-256'
-				}}
-				TransitionProps={{
-					onEntered: () => {
-						searchInputRef?.current?.focus();
-					},
-					onExited: () => {
-						setSearchText('');
-					}
-				}}
-			>
-				<div className="p-16 pt-8">
-					<Input
-						inputRef={searchInputRef}
-						value={searchText}
-						onChange={search}
-						placeholder="Search for an app or page"
-						fullWidth
-						inputProps={{
-							'aria-label': 'Search'
-						}}
-						disableUnderline
-					/>
-				</div>
-
-				<Divider />
-
-				{useMemo(() => {
-					if (searchText.length === 0 || !searchResults || searchResults.length === 0) {
-						return null;
-					}
-
-					return searchResults.map((_item) => (
-						<ShortcutMenuItem
-							shortcuts={shortcuts}
-							key={_item.id}
-							item={_item}
-							onToggle={() => toggleInShortcuts(_item.id)}
-						/>
-					));
-				}, [searchResults, shortcuts, searchText])}
-
-				{searchText.length !== 0 && searchResults.length === 0 && (
-					<Typography
-						color="text.secondary"
-						className="p-16 pb-8"
-					>
-						No results..
-					</Typography>
-				)}
-
-				{useMemo(() => {
-					if (searchText.length !== 0) {
-						return null;
-					}
-
-					return shortcutItems.map(
-						(_item) =>
-							_item && (
-								<ShortcutMenuItem
-									shortcuts={shortcuts}
-									key={_item.id}
-									item={_item}
-									onToggle={() => toggleInShortcuts(_item.id)}
-								/>
-							)
-					);
-				}, [shortcutItems, shortcuts, searchText])}
-			</Menu>
-		</div>
+		<LeftSidebarContext.Provider value={{ leftSidebarOpen, setLeftSidebarOpen }}>
+			{children}
+		</LeftSidebarContext.Provider>
 	);
-}
+};
+export const useLeftSidebar = () => useContext(LeftSidebarContext);
 
-function ShortcutMenuItem(props: {
-	shortcuts: FuseShortcutsProps['shortcuts'];
-	item: FuseFlatNavItemType;
-	onToggle: (T: string) => void;
-}) {
-	const { item, onToggle, shortcuts = [] } = props;
-
-	if (!item || !item.id) {
-		return null;
-	}
-
-	return (
-		<Link
-			to={item.url || ''}
-			role="button"
-		>
-			<MenuItem key={item.id}>
-				<ListItemIcon className="min-w-40">
-					{item.icon ? (
-						<FuseSvgIcon>{item.icon}</FuseSvgIcon>
-					) : (
-						<span className="text-center text-20 font-semibold uppercase">{item.title[0]}</span>
-					)}
-				</ListItemIcon>
-				<ListItemText primary={item.title} />
+function FuseShortcuts(props: FuseShortcutsProps) {
+	const { variant = 'horizontal', className = '' } = props;
+	useRef<HTMLInputElement>(null);
+	const {leftSidebarOpen, setLeftSidebarOpen } = useLeftSidebar();
+	return (useMemo(() => {
+		return (
+			<div className={clsx('flex flex-1', variant === 'vertical' && 'flex-col')}>
 				<IconButton
-					onClick={(ev) => {
-						ev.preventDefault();
-						ev.stopPropagation();
-						onToggle(item.id);
+					className="h-40 w-40 p-0"
+					aria-haspopup="true"
+					onClick={() => {
+						setLeftSidebarOpen(prevState => !prevState); // Toggle leftSidebarOpen
 					}}
 					size="large"
 				>
-					<FuseSvgIcon color="action">
-						{shortcuts.includes(item.id) ? 'heroicons-solid:star' : 'heroicons-outline:star'}
-					</FuseSvgIcon>
+					<FuseSvgIcon>heroicons-solid:view-list</FuseSvgIcon>
 				</IconButton>
-			</MenuItem>
-		</Link>
-	);
+			</div>
+		);
+	}, [variant, leftSidebarOpen]))
 }
 
-export default memo(FuseShortcuts);
+export default FuseShortcuts;

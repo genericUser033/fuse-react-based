@@ -33057,6 +33057,18 @@
             "position": "Designer",
             "joinedDate": "2012-01-25",
             "yearsOfWork": "12 years"
+          },
+          {
+            "id": "13",
+            "avatar": "assets/images/avatars/female-14.jpg",
+            "staffId": 113,
+            "japanName": "斎藤 さちこ",
+            "katakanaName": "サイトウ サチコ",
+            "englishName": "Sachiko Saito",
+            "koreanName": "사이토 사치코",
+            "position": "Designer",
+            "joinedDate": "2012-01-25",
+            "yearsOfWork": "12 years"
           }
         ]
       },
