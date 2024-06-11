@@ -19,8 +19,9 @@ import { useLeftSidebar } from '@fuse/core/FuseShortcuts/FuseShortcuts';
 
 function BreakdownContent() {
 	const [searchText, setSearchText] = useState('');
+	const [sortAscending, setSortAscending] = useState(true);
 
-	const theads = ['社員番号', '名前(ja)', '名前(en)', '名前(ko)', '役職', '入社日', '勤続年数'];
+	const theads = ['名前(ja)', '名前(en)', '名前(ko)', '役職', '入社日', '勤続年数'];
 	function handleSearchText(event) {
 		setSearchText(event.target.value);
 	}
@@ -42,6 +43,16 @@ function BreakdownContent() {
 	} = useGetStaffItemQuery(staffIdChecking, {
 		skip: !staffIdChecking
 	});
+
+	useEffect(() => {
+		if (filteredStaff && filteredStaff.length > 0) {
+			const sortedStaff = sortAscending ? [...filteredStaff].sort((a, b) => a.staffId - b.staffId) :
+				[...filteredStaff].sort((a, b) => b.staffId - a.staffId);
+			setFilteredStaff(sortedStaff);
+		} else {
+			setFilteredStaff([]);
+		}
+	}, [sortAscending]);
 
 	useEffect(() => {
 		function getFilteredArray() {
@@ -93,6 +104,14 @@ function BreakdownContent() {
 						<thead className="bg-gray-200 text-gray-600 ">
 							<tr >
 								<th style={{ flex: '1' }} className="px-20"/> {/* Use flex: "1" to take up remaining space */}
+								<th className="px-18 flex">
+									<span>社員番号</span>
+									<button onClick={() => {
+										console.log(sortAscending);
+										setSortAscending(!sortAscending);
+									}}>
+										{sortAscending ? '↑' : '↓'}</button>
+								</th>
 							{
 								theads.map((thead, index) => {
 									return <th key={index} className="px-20 text-justify">{thead}</th>;
