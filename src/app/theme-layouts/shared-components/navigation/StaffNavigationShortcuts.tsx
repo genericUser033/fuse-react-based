@@ -7,7 +7,12 @@ const StaffNavigationShortcuts = ({ onFilterChange, data }) => {
 
 	return (
 		<div className="w-1/5 bg-[#FFFFFF] p-16 border border-gray-200">
-			<h1 className="m-[20px]">社員管理</h1>
+			<button
+				className="m-[20px]"
+				onClick={() => onFilterChange('')}
+			>
+				<h1>社員管理</h1>
+			</button>
 			<ul>
 				<h3 className="m-[20px] text-blue-700 font-bold">役職</h3>
 				{levels.map((level, index) => {

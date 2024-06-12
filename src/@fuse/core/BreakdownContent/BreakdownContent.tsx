@@ -71,9 +71,11 @@ function BreakdownContent() {
 
 	useEffect(() => {
 		function positionFilter() {
-			return data ?  _.filter(data, (item) => {
-				return checkFieldsForObject(item, sidebarFilterValues);
-			}) : data;
+			if(!(sidebarFilterValues && data)) {
+				return data;
+			}
+			return _.filter(data, (item) => {
+				return checkFieldsForObject(item, sidebarFilterValues)});
 		}
 		setFilteredStaff(positionFilter());
 	}, [sidebarFilterValues]);
