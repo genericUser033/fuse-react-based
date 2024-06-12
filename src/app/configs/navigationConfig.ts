@@ -18,7 +18,7 @@ const navigationConfig: FuseNavItemType[] = [
 		translate: '社員管理',
 		type: 'item',
 		icon: 'heroicons-outline:pencil-alt',
-		url: 'break-down'
+		url: 'staff-management'
 	}
 ];
 

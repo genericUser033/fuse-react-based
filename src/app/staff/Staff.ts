@@ -10,6 +10,7 @@ export type Staff = {
 	position?: Position;
 	joinedDate?: string;
 	yearsOfWork?: number;
+	workplace?: string
 };
 
 export type Position = {

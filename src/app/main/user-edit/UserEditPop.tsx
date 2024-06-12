@@ -17,23 +17,23 @@ const StyledSwipeableDrawer = styled(SwipeableDrawer)(() => ({
 	}
 }));
 
+const useStyles = makeStyles({
+	activeTab: {
+		color: 'blue',
+		borderBottom: '3px solid rgba(0, 0, 128, 0.5)',
+	},
+});
+
 export const UserEditPop = (props) => {
 	const {data} = { ...props };
 	const [selectedTab, setSelectedTab] = useState(0);
 
-	function handleTabChange(event: SyntheticEvent, value: number) {
-		setSelectedTab(value);
-	}
-
 	const dispatch = useAppDispatch();
 	const open = useAppSelector(selectUserEditPopUpOpen);
 
-	const useStyles = makeStyles({
-		activeTab: {
-			color: 'blue',
-			borderBottom: '3px solid rgba(0, 0, 128, 0.5)',
-		},
-	});
+	function handleTabChange(event: SyntheticEvent, value: number) {
+		setSelectedTab(value);
+	}
 
 	useEffect(() => {
 		if(!open) {
@@ -52,9 +52,10 @@ export const UserEditPop = (props) => {
 			disableSwipeToOpen
 		>
 			<div className="h-full">
-				<div className="flex flex-col w-full h-300" style={{ backgroundColor: '#292E5F', minHeight: '120px' }}>
-					{/* No content */}
-				</div>
+				<div
+					className="flex flex-col w-full h-300"
+					style={{ backgroundColor: '#292E5F', minHeight: '120px' }}
+				/>
 				<div className="flex items-center max-w-5xl w-full mx-auto px-32 lg:h-72">
 					<div className="-mt-96 lg:-mt-88 rounded-full">
 						<motion.div
@@ -70,7 +71,9 @@ export const UserEditPop = (props) => {
 						</motion.div>
 					</div>
 					<div className="flex flex-grow justify-end items-center mr-20">
-						<button className='flex border border-1 rounded-3xl pr-[15px] py-[5px] text-sm'><FuseSvgIcon className='mr-8  mx-[15px]'>heroicons-outline:pencil-alt</FuseSvgIcon>編集</button>
+						<button className='flex border border-1 rounded-3xl pr-[15px] py-[5px] text-sm'>
+							<FuseSvgIcon className='mr-8  mx-[15px]'>heroicons-outline:pencil-alt</FuseSvgIcon>編集
+						</button>
 					</div>
 				</div>
 				<div className="flex-wrap" />
@@ -135,14 +138,26 @@ export const UserEditPop = (props) => {
 					:
 					<div className="tab1　flex m-[20px] items-center">
 						<div className="flex m-[20px] mr-20">
-							<FuseSvgIcon size={20} color='gray' marginRight='20px'>heroicons-outline:menu-alt-2</FuseSvgIcon>
+							<FuseSvgIcon
+								size={20}
+								color='gray'
+								marginRight='20px'
+							>
+								heroicons-outline:menu-alt-2
+							</FuseSvgIcon>
 							<div className="w-2/5">現場名</div>
-							<div>{data?.yearsOfWork}</div>
+							<div>{data?.workplace}</div>
 						</div>
 						<div className="flex m-[20px]">
-							<FuseSvgIcon size={20} color='gray' marginRight='20px'>heroicons-outline:menu-alt-2</FuseSvgIcon>
+							<FuseSvgIcon
+								size={20}
+								color='gray'
+								marginRight='20px'
+							>
+								heroicons-outline:menu-alt-2
+							</FuseSvgIcon>
 							<div className="w-2/5">状態</div>
-							<div>{data?.koreanName}</div>
+							<div>{data?.status}</div>
 						</div>
 					</div>
 				}

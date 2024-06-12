@@ -19,7 +19,7 @@ const BreakDownConfig = {
 	},
 	routes: [
 		{
-			path: 'break-down',
+			path: 'staff-management',
 			element: <BreakDown />
 		}
 	]
