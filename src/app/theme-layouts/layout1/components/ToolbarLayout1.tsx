@@ -25,7 +25,7 @@ type ToolbarLayout1Props = {
  * The toolbar layout 1.
  */
 function ToolbarLayout1(props: ToolbarLayout1Props) {
-	const { className } = props;
+	const { className, leftSideBarOpen } = props;
 	const config = useAppSelector(selectFuseCurrentLayoutConfig) as Layout1ConfigDefaultsType;
 	const navbar = useAppSelector(selectFuseNavbar);
 	const toolbarTheme = useAppSelector(selectToolbarTheme);
@@ -55,7 +55,7 @@ function ToolbarLayout1(props: ToolbarLayout1Props) {
 									)}
 
 									{config.navbar.style === 'style-1' && !navbar.open && (
-										<NavbarToggleButton className="mx-0 h-40 w-40 p-0" />
+										<NavbarToggleButton className="mx-0 h-40 w-40 p-0" leftSideBarOpen={leftSideBarOpen}/>
 									)}
 								</Hidden>
 
@@ -71,12 +71,7 @@ function ToolbarLayout1(props: ToolbarLayout1Props) {
 					</div>
 
 					<div className="flex h-full items-center overflow-x-auto px-8">
-						<LanguageSwitcher />
-						<AdjustFontSize />
 						<FullScreenToggle />
-						<NavigationSearch />
-						<QuickPanelToggleButton />
-						<UserMenu />
 					</div>
 
 					{config.navbar.display && config.navbar.position === 'right' && (

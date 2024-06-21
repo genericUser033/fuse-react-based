@@ -69,6 +69,113 @@
         ]
       }
     },
+    "/retrieve/staffs": {
+      "parameters": [],
+      "get": {
+        "summary": "Fetch user",
+        "x-stoplight": {
+          "id": "73d7f4c16f9e2"
+        },
+        "operationId": "fetchUser",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "Fetch user data.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/staff"
+              },
+              "examples": {
+                "example-1": {
+                  "value": {
+                    "uid": "string",
+                    "社員番号": "string",
+                    "名前(ja)": "string",
+                    "名前(en)": "string",
+                    "名前(ko)": "string",
+                    "役職": "string",
+                    "入社日": "string",
+                    "勤続年数": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "staffs"
+        ]
+      }
+    },
+    "/staff/{staffId}": {
+      "get": {
+        "summary": "Get staff",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/staff_item"
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "id": "string",
+                      "avatar": "string",
+                      "staffId": 1,
+                      "japanName": "string",
+                      "katakanaName": "string",
+                      "englishName": "string",
+                      "koreanName": "string",
+                      "position": "Position",
+                      "joinedDate": "string",
+                      "yearsOfWork": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get Staff",
+        "description": "Retrieve Staff by id.",
+        "tags": [
+          "staff_item"
+        ]
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "notificationId",
+          "in": "path",
+          "required": true,
+          "description": "notification id"
+        }
+      ],
+      "delete": {
+        "summary": "Delete notification",
+        "operationId": "deleteNotification",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "description": "Delete notification.",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
     "/auth/sign-in": {
       "post": {
         "summary": "Sign in",
@@ -32802,6 +32909,190 @@
                 "apps.tasks"
               ]
             }
+          }
+        ]
+      },
+      "staffs": {
+        "value": [
+          {
+            "id": "1",
+            "avatar": "assets/images/avatars/female-01.jpg",
+            "staffId": 101,
+            "japanName": "田中 太郎",
+            "katakanaName": "タナカ タロウ",
+            "englishName": "Taro Tanaka",
+            "koreanName": "타나카 타로",
+            "position": "社員",
+            "joinedDate": "2022-01-01",
+            "status": "待機中",
+            "yearsOfWork": "2 years",
+            "workplace": "マイクロソフト"
+          },
+          {
+            "id": "2",
+            "avatar": "assets/images/avatars/brian-hughes.jpg",
+            "staffId": 102,
+            "japanName": "鈴木 花子",
+            "katakanaName": "スズキ ハナコ",
+            "englishName": "Hanako Suzuki",
+            "koreanName": "스즈키 하나코",
+            "position": "社員",
+            "joinedDate": "2023-03-15",
+            "status": "待機中",
+            "workplace": "マイクロソフト",
+            "yearsOfWork": "1 year"
+          },
+          {
+            "id": "3",
+            "avatar": "assets/images/avatars/female-03.jpg",
+            "staffId": 103,
+            "japanName": "山田 次郎",
+            "katakanaName": "ヤマダ ジロウ",
+            "englishName": "Jiro Yamada",
+            "koreanName": "야마다 지로",
+            "position": "社員",
+            "joinedDate": "2021-07-10",
+            "status": "待機中",
+            "yearsOfWork": "3 years"
+          },
+          {
+            "id": "4",
+            "avatar": "assets/images/avatars/female-04.jpg",
+            "staffId": 104,
+            "japanName": "佐藤 美代子",
+            "katakanaName": "サトウ ミヨコ",
+            "englishName": "Miyoko Sato",
+            "koreanName": "사토 미요코",
+            "position": "社員",
+            "joinedDate": "2020-05-20",
+            "status": "待機中",
+            "workplace": "マイクロソフト",
+            "yearsOfWork": "4 years"
+          },
+          {
+            "id": "5",
+            "avatar": "assets/images/avatars/female-05.jpg",
+            "staffId": 105,
+            "japanName": "高橋 健太",
+            "katakanaName": "タカハシ ケンタ",
+            "englishName": "Kenta Takahashi",
+            "koreanName": "타카하시 켄타",
+            "position": "社員",
+            "status": "現場",
+            "joinedDate": "2019-11-11",
+            "workplace": "マイクロソフト",
+            "yearsOfWork": "5 years"
+          },
+          {
+            "id": "6",
+            "avatar": "assets/images/avatars/female-06.jpg",
+            "staffId": 106,
+            "japanName": "伊藤 由美",
+            "katakanaName": "イトウ ユミ",
+            "englishName": "Yumi Ito",
+            "koreanName": "이토 유미",
+            "position": "課長",
+            "joinedDate": "2018-09-30",
+            "status": "現場",
+            "workplace": "マイクロソフト",
+            "yearsOfWork": "6 years"
+          },
+          {
+            "id": "7",
+            "avatar": "assets/images/avatars/female-08.jpg",
+            "staffId": 107,
+            "japanName": "中村 太一",
+            "katakanaName": "ナカムラ タイチ",
+            "englishName": "Taichi Nakamura",
+            "koreanName": "나카무라 타이치",
+            "status": "現場",
+            "position": "課長",
+            "workplace": "みずほ銀行",
+            "joinedDate": "2017-04-05",
+            "yearsOfWork": "7 years"
+          },
+          {
+            "id": "8",
+            "avatar": "assets/images/avatars/female-09.jpg",
+            "staffId": 108,
+            "japanName": "小林 美佐子",
+            "katakanaName": "コバヤシ ミサコ",
+            "englishName": "Misako Kobayashi",
+            "koreanName": "코바야시 미사코",
+            "position": "次長",
+            "status": "現場",
+            "workplace": "みずほ銀行",
+            "joinedDate": "2016-02-18",
+            "yearsOfWork": "8 years"
+          },
+          {
+            "id": "9",
+            "avatar": "assets/images/avatars/female-10.jpg",
+            "staffId": 109,
+            "japanName": "加藤 光男",
+            "katakanaName": "カトウ ミツオ",
+            "englishName": "Mitsuo Kato",
+            "koreanName": "카토 미쓰오",
+            "position": "課長",
+            "joinedDate": "2015-08-22",
+            "status": "現場",
+            "workplace": "みずほ銀行",
+            "yearsOfWork": "9 years"
+          },
+          {
+            "id": "10",
+            "avatar": "assets/images/avatars/female-11.jpg",
+            "staffId": 110,
+            "japanName": "山口 美智子",
+            "katakanaName": "ヤマグチ ミチコ",
+            "englishName": "Michiko Yamaguchi",
+            "koreanName": "야마구치 미치코",
+            "position": "次長",
+            "joinedDate": "2014-06-14",
+            "status": "現場",
+            "yearsOfWork": "10 years"
+          },
+          {
+            "id": "11",
+            "avatar": "assets/images/avatars/female-12.jpg",
+            "staffId": 111,
+            "japanName": "松本 健一",
+            "katakanaName": "マツモト ケンイチ",
+            "englishName": "Kenichi Matsumoto",
+            "koreanName": "마츠모토 켄이치",
+            "position": "次長",
+            "joinedDate": "2013-03-30",
+            "workplace": "アマゾン",
+            "status": "現場",
+            "yearsOfWork": "11 years"
+          },
+          {
+            "id": "12",
+            "avatar": "assets/images/avatars/female-13.jpg",
+            "staffId": 112,
+            "japanName": "斎藤 さちこ",
+            "katakanaName": "サイトウ サチコ",
+            "englishName": "Sachiko Saito",
+            "koreanName": "사이토 사치코",
+            "position": "部長",
+            "status": "現場",
+            "joinedDate": "2012-01-25",
+            "workplace": "アマゾン",
+            "yearsOfWork": "12 years"
+          },
+          {
+            "id": "13",
+            "avatar": "assets/images/avatars/female-14.jpg",
+            "staffId": 113,
+            "japanName": "斎藤 さちこ",
+            "katakanaName": "サイトウ サチコ",
+            "englishName": "Sachiko Saito",
+            "koreanName": "사이토 사치코",
+            "position": "部長",
+            "status": "現場",
+            "workplace": "アマゾン",
+            "joinedDate": "2012-01-25",
+            "yearsOfWork": "12 years"
           }
         ]
       },

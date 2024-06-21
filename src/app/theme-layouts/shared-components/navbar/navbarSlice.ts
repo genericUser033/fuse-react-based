@@ -1,4 +1,4 @@
-import { createSlice, type WithSlice } from '@reduxjs/toolkit';
+import { createSlice, WithSlice } from '@reduxjs/toolkit';
 import { rootReducer } from 'app/store/lazyLoadedSlices';
 
 /**

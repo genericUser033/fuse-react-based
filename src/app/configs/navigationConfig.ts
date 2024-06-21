@@ -13,20 +13,12 @@ i18next.addResourceBundle('ar', 'navigation', ar);
  */
 const navigationConfig: FuseNavItemType[] = [
 	{
-		id: 'example-component',
-		title: 'Example',
-		translate: 'EXAMPLE',
+		id: '',
+		title: 'マスター管理',
+		translate: '社員管理',
 		type: 'item',
-		icon: 'heroicons-outline:star',
-		url: 'example'
-	},
-	{
-		id: 'break-component',
-		title: 'BreakDown',
-		translate: 'BREAKDOWN',
-		type: 'item',
-		icon: 'heroicons-outline:star',
-		url: 'break-down'
+		icon: 'heroicons-outline:pencil-alt',
+		url: 'staff-management'
 	}
 ];
 
